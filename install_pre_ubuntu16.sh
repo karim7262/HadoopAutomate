@@ -43,11 +43,26 @@ function check_java_install()
 					#sudo yum -y install java-1.6.0-openjdk
 			else
 					if [ -x "$(command -v apt-get)" ]; then
-							echo "Installing java through apt-get"
-							#sudo apt-get install openjdk-6-jre
+							install_java
 					fi
 			fi
 	fi
+}
+
+function set_swapiness()
+{
+	echo "Current Swapiness is: " && cat /proc/sys/vm/swappiness
+	sudo sysctl vm.swappiness=0
+	sudo sysctl -p
+	echo "Updated Swapiness is: " && cat /proc/sys/vm/swappiness
+}	
+
+#******************************************************************
+#			Dependent Functions
+#******************************************************************
+function install_java()
+{
+	echo "Installing java through apt-get"
 }
 
 echo "**********************"
@@ -56,4 +71,6 @@ echo "**********************"
 check_pkgMgr
 echo "**********************"
 check_java_install
+echo "**********************"
+set_swapiness
 echo "**********************"
