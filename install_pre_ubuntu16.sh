@@ -149,7 +149,15 @@ function set_hugepageTransparent()
     fi
     echo "All Lines added now exiting"
 }
-
+function disable_selinux()
+{
+    apt install selinux-utils
+    if getenforce=disabled; then
+        echo "SELinux Disabled"
+    else
+        setenforce 0
+    fi
+}
 
 
 #******************************************************************
@@ -179,9 +187,11 @@ function install_apt_java()
 # echo "*****iptables wont remove any issues*****************"
 # set_iptables
 # echo "**********************"
-set_hugepageTransparent
+# set_hugepageTransparent
 # echo "**********************"
 # check_ntp_install
 # echo "**********************"
 # root_reservedspace
 # echo "**********************"
+disable_selinux
+echo "***********************"
